@@ -4,9 +4,6 @@ class ShortUrlRepository
   end
 
   def create_item
-    {
-      short_url: '/abc123',
-      url: @params[:url]
-    }
+    ShortUrl.new(@params[:url])
   end
 end
