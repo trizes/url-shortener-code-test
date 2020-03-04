@@ -7,6 +7,12 @@ class ShortUrlController < Sinatra::Base
     json url
   end
 
+  get '/list' do
+    urls = repo.list
+
+    json data: urls
+  end
+
   def repo
     ShortUrlRepository.new(permitted_params)
   end

@@ -14,6 +14,10 @@ RSpec.configure do |c|
 
   c.order = :random
   Kernel.srand c.seed
+
+  c.before(:each) do
+    ShortUrl.destroy_all
+  end
 end
 
 def json_response
