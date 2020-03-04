@@ -1,0 +1,9 @@
+version: '3'
+services:
+  web:
+    build: .
+    command: bash -c "rackup -p 4567"
+    volumes:
+      - .:/app
+    ports:
+      - "4567:4567"
