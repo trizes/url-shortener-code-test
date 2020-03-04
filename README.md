@@ -1,3 +1,14 @@
+# Startup Instructions
+
+Run `docker-compose up -d` to start the container
+Run post and get commands against http://localhost:4567/ address.
+
+```
+curl localhost:4567 -XPOST -d '{ "url": "http://www.farmdrop.com" }' # Post link
+curl localhost:4567/list # Get list of known urls
+curl -I localhost:4567/example # Get full url location
+```
+
 # Url Shortener Code Test
 
 Without using an external database, we'd like you to create a URL shortening
