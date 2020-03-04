@@ -1,7 +1,8 @@
 # Startup Instructions
 
-Run `docker-compose up -d` to start the container
-Run post and get commands against http://localhost:4567/ address.
+Run `docker-compose up -d` to start the container.
+
+Execute post and get commands to http://localhost:4567/ address.
 
 ```
 curl localhost:4567 -XPOST -d '{ "url": "http://www.farmdrop.com" }' # Post link
