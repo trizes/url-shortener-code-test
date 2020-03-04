@@ -8,9 +8,15 @@ class ShortUrlController < Sinatra::Base
   end
 
   get '/list' do
-    urls = repo.list
+    json data: repo.list
+  end
 
-    json data: urls
+  get '/*' do
+    query = params[:splat].first[0..8]
+
+    short_url = repo.find(query)
+
+    redirect short_url.url, 301
   end
 
   def repo

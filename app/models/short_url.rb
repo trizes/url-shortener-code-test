@@ -1,20 +1,20 @@
 class ShortUrl
-  @storage = []
+  @storage = SortedSet[]
 
   def self.all
-    @storage
-  end
-
-  def self.storage
-    @storage
+    @storage.to_a
   end
 
   def self.save(obj)
-    @storage.push(obj)
+    @storage.add(obj)
   end
 
   def self.destroy_all
-    @storage = []
+    @storage.clear
+  end
+
+  def self.find(id)
+    @storage.find { |el| el.short_url == id }
   end
 
   def initialize(url)
@@ -28,6 +28,10 @@ class ShortUrl
 
   def save
     self.class.save(self)
+  end
+
+  def <=> (other)
+    short_url <=> other.short_url
   end
 
   def as_json(_ = {})

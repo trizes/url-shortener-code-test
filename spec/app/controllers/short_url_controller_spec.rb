@@ -7,6 +7,7 @@ RSpec.describe ShortUrlController do
 
   let(:subject) { json_response }
   let(:url) { FFaker::Internet.http_url }
+  let(:shortened) { ShortUrl.new(url) }
 
   describe 'POST url' do
     it 'returns short URL' do
@@ -35,6 +36,18 @@ RSpec.describe ShortUrlController do
 
       expect(urls.length).to be 2
       expect(urls.first[:url]).to eql url
+    end
+  end
+
+  describe 'GET short_url' do
+    it 'finds saved url' do
+      shortened.save
+      get "/#{shortened.short_url}"
+      expect(last_response.status).to be 301
+    end
+
+    it "returns 404 if short url is not known" do
+      '...'
     end
   end
 end

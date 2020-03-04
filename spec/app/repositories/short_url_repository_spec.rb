@@ -31,4 +31,12 @@ RSpec.describe ShortUrlRepository do
       expect(short_url_model).to have_received(:save)
     end
   end
+
+  describe '#find' do
+    it 'finds short url by id' do
+      expect(ShortUrl).to receive(:find)
+
+      subject.find('abc123')
+    end
+  end
 end

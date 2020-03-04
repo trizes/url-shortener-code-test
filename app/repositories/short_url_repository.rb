@@ -14,4 +14,8 @@ class ShortUrlRepository
 
     url
   end
+
+  def find(id)
+    ShortUrl.find(id)
+  end
 end
