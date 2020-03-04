@@ -3,7 +3,15 @@ class ShortUrlRepository
     @params = params
   end
 
+  def list
+    ShortUrl.all
+  end
+
   def create_item
-    ShortUrl.new(@params[:url])
+    url = ShortUrl.new(@params[:url])
+
+    url.save
+
+    url
   end
 end

@@ -1,6 +1,20 @@
 class ShortUrl
+  @storage = []
+
+  def self.all
+    @storage
+  end
+
+  def self.storage
+    @storage
+  end
+
   def initialize(url)
     @url = url
+  end
+
+  def save
+    self.class.storage << self
   end
 
   def as_json(_ = {})

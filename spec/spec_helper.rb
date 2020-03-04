@@ -2,6 +2,7 @@ require 'rack/test'
 require 'rspec'
 require './app'
 require 'ffaker'
+require 'pry'
 
 ENV['RACK_ENV'] = 'test'
 
