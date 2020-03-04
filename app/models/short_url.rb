@@ -1,5 +1,14 @@
+require 'uri'
+
 class ShortUrl
+  # Data storage, mimics array like return values
+  # Is sorted to mimic DB indexes and nlogn lookups
+
   @storage = SortedSet[]
+
+  # TODO: class methods below are ORM related
+  # should moved out into a module or may be
+  # already implemented by the DB
 
   def self.all
     @storage.to_a
@@ -19,18 +28,45 @@ class ShortUrl
 
   def initialize(url)
     @url = url
-    @short_url = UrlShortener.encode(url)
+    @errors = []
+    url_shorten
+    add_timestamps
+  end
+
+  attr_reader :url, :short_url, :created_at, :updated_at, :errors
+
+  URI_REGEX = %r{^[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,6}(:[0-9]{1,5})?(\/.*)?$}ix.freeze
+
+  def add_timestamps
     @created_at = Time.now.utc
     @updated_at = @created_at.dup
   end
 
-  attr_reader :url, :short_url, :created_at, :updated_at
+  def url_shorten
+    uri = URI.parse(url)
 
-  def save
-    self.class.save(self)
+    uri = URI.parse("http://#{url}") unless uri.scheme
+
+    if uri.hostname =~ URI_REGEX
+      @url = uri.to_s
+      @short_url = UrlShortener.encode(url)
+    else
+      @errors << 'Unprocessable url'
+    end
   end
 
-  def <=> (other)
+  def save
+    self.class.save(self) if valid?
+
+    self
+  end
+
+  def valid?
+    @errors.empty?
+  end
+
+  # required for sorted set
+  def <=>(other)
     short_url <=> other.short_url
   end
 

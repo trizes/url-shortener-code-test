@@ -15,7 +15,7 @@ class ShortUrlRepository
     url
   end
 
-  def find(id)
-    ShortUrl.find(id)
+  def find(query)
+    ShortUrl.find query[0..8]
   end
 end

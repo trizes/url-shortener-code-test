@@ -4,7 +4,11 @@ class ShortUrlController < Sinatra::Base
   post '/' do
     url = repo.create_item
 
-    json url
+    if url.valid?
+      json url
+    else
+      halt 422, {'Content-Type' => 'application/json'}, { errors: url.errors }.to_json
+    end
   end
 
   get '/list' do
@@ -12,11 +16,13 @@ class ShortUrlController < Sinatra::Base
   end
 
   get '/*' do
-    query = params[:splat].first[0..8]
+    short_url = repo.find(params[:splat].first)
 
-    short_url = repo.find(query)
-
-    redirect short_url.url, 301
+    if short_url
+      redirect short_url.url, 301
+    else
+      status 404
+    end
   end
 
   def repo
@@ -24,6 +30,15 @@ class ShortUrlController < Sinatra::Base
   end
 
   def permitted_params
-    params.slice(:url)
+    request_params.slice(:url)
+  end
+
+  def request_params
+    if request.post?
+      request.body.rewind
+      JSON.parse(request.body.read, symbolize_names: true)
+    else
+      params
+    end
   end
 end
