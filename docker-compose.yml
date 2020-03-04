@@ -2,7 +2,7 @@ version: '3'
 services:
   web:
     build: .
-    command: bash -c "rackup -p 4567"
+    command: bash -c "bundle exec rackup -p 4567 --host 0.0.0.0"
     volumes:
       - .:/app
     ports:

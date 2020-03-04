@@ -1,13 +1,20 @@
 require './app/repositories/short_url_repository'
 
 class ShortUrlController < Sinatra::Base
+  set :root, File.join(File.dirname(__FILE__), '..')
+  set :views, -> { File.join(root, 'views') }
+
+  get '/' do
+    erb :index
+  end
+
   post '/' do
     url = repo.create_item
 
     if url.valid?
       json url
     else
-      halt 422, {'Content-Type' => 'application/json'}, { errors: url.errors }.to_json
+      halt 422, { 'Content-Type' => 'application/json' }, { errors: url.errors }.to_json
     end
   end
 

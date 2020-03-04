@@ -19,4 +19,14 @@ RSpec.describe ShortUrl do
 
     expect(model.url).to eq "http://#{link}"
   end
+
+  context 'duplicates' do
+    it 'does not save duplicate' do
+      subject.save
+
+      expect(ShortUrl).not_to receive(:save)
+
+      described_class.new(subject.url).save
+    end
+  end
 end

@@ -1,0 +1,127 @@
+.main-container {
+    background-image: url("https://images.unsplash.com/photo-1581272408424-5077d06e8322?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80");
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    min-height: 100vh;
+    overflow: hidden;
+    font-family: 'Nunito', sans-serif;
+}
+
+.overlay {
+    position: absolute;
+    width: 30vw;
+    height: 200px;
+    z-index: 10;
+    top: 50%;
+    left: 30%;
+    margin: -150px 0 0 -25vw;
+    text-align: center;
+    z-index: 1;
+    background: inherit;
+    overflow: hidden;
+}
+
+.overlay h2 {
+    margin-top: 40px;
+}
+
+.url-form {
+    margin-top: 40px;
+}
+
+.url-input {
+    outline: none;
+    width: 350px;
+}
+
+.submit-button {
+    display: block;
+    margin: 10px auto;
+    width: 100px;
+}
+
+.overlay:before {
+    content: '';
+    position: absolute;
+    background: inherit;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    box-shadow: inset 0 0 2000px rgba(255, 255, 255, .5);
+    -webkit-filter: blur(10px);
+    -moz-filter: blur(10px);
+    -o-filter: blur(10px);
+    -ms-filter: blur(10px);
+    filter: blur(10px);
+    margin: -20px;
+}
+
+.known-links {
+    float: right;
+    position: absolute;
+    top: 5%;
+    right: 0;
+    background-color :#f5f5f5;
+    width: 45vw;
+    height: 95vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.list-title {
+    padding-left: 40px;
+}
+
+.list {
+    list-style: none;
+    padding-inline-start: 40px;
+    color: #555;
+    font-size: 18px;
+    padding: 0 !important;
+    font-family: courier, monospace;
+    border: 1px solid #dedede;
+}
+
+.list li {
+    list-style: none;
+    border-bottom: 1px dotted #ccc;
+    text-indent: 25px;
+    height: auto;
+    padding: 5px;
+}
+
+.list li:hover {
+    background-color: #f0f0f0;
+    -webkit-transition: all 0.2s;
+    -moz-transition:    all 0.2s;
+    -ms-transition:     all 0.2s;
+    -o-transition:      all 0.2s;
+    transition:         all 0.2s;
+}
+
+.lines {
+    border-left: 1px solid #ffaa9f;
+    border-right: 1px solid #ffaa9f;
+    width: 2px;
+    float: left;
+    height: 100%;
+    margin-left: 40px;
+}
+
+.shake {
+    animation: shake 0.3s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes shake {
+    0% { transform: translate(1px, 1px) rotate(0deg); }
+    20% { transform: translate(-3px, 0px) rotate(1deg); }
+    40% { transform: translate(1px, -1px) rotate(1deg); }
+    60% { transform: translate(-3px, 1px) rotate(0deg); }
+    80% { transform: translate(-1px, -1px) rotate(1deg); }
+    100% { transform: translate(1px, -2px) rotate(-1deg); }
+}

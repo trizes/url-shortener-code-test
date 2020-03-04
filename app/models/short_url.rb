@@ -29,7 +29,9 @@ class ShortUrl
   def initialize(url)
     @url = url
     @errors = []
+    validate_url
     url_shorten
+    validate_dup
     add_timestamps
   end
 
@@ -42,21 +44,30 @@ class ShortUrl
     @updated_at = @created_at.dup
   end
 
-  def url_shorten
+  def validate_dup
+    dup = ShortUrl.find(short_url)
+
+    @errors << 'Duplicate record' if dup
+  end
+
+  def validate_url
     uri = URI.parse(url)
 
     uri = URI.parse("http://#{url}") unless uri.scheme
 
     if uri.hostname =~ URI_REGEX
       @url = uri.to_s
-      @short_url = UrlShortener.encode(url)
     else
       @errors << 'Unprocessable url'
     end
   end
 
+  def url_shorten
+    @short_url = UrlShortener.encode(url)
+  end
+
   def save
-    self.class.save(self) if valid?
+    valid? && self.class.save(self)
 
     self
   end

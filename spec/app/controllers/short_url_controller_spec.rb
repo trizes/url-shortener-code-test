@@ -22,11 +22,10 @@ RSpec.describe ShortUrlController do
       expect(subject[:url]).to eql(url)
     end
 
-    fit 'returns validation errors' do
+    it 'returns validation errors' do
       post '/', { url: 'invalid' }.to_json
 
       expect(last_response.status).to be 422
-      # expect(subject[:url]).to eql(url)
     end
   end
 
